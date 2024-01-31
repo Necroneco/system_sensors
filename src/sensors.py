@@ -329,6 +329,15 @@ def zpool_base(pool) -> dict:
         'function': lambda: get_zpool_use(f'{pool}')
         }
 
+def get_fan_speed(fan_name: str) -> str | None:
+    if hasattr(psutil, "sensors_fans"):
+        fans = psutil.sensors_fans()
+        if fan_name in fans:
+            fan = fans[fan_name]
+            if len(fan) > 0:
+                return str(fan[0].current)
+    return None
+
 sensors = {
           'temperature':
                 {'name':'Temperature',
@@ -474,5 +483,12 @@ sensors = {
                  'icon': 'wifi',
                  'sensor_type': 'sensor',
                  'function': get_wifi_ssid},
+          'fan_speed':
+                {'name': 'Fan Speed',
+                 'state_class': 'measurement',
+                 'unit': 'RPM',
+                 'icon': 'fan',
+                 'sensor_type': 'sensor',
+                 'function': get_fan_speed},
           }
 

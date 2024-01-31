@@ -35,6 +35,7 @@ sensors:
   updates: true
   wifi_strength: true
   wifi_ssid: true
+  fan_speed: false # "pwmfan"
   external_drives:
     # Only add mounted drives here, e.g.:
     # Drive1: /media/storage
